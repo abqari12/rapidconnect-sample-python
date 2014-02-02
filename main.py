@@ -59,9 +59,14 @@ class LogoutHandler(BaseHandler):
     self.session.clear()
     self.redirect('/')
 
+class ReadmeHandler(BaseHandler):
+  def get(self):
+    self.response.out.write(template.render('views/readme.html', {}))
+
 app = webapp2.WSGIApplication([
   (r'/', RootHandler),
   (r'/welcome', WelcomeHandler),
   (r'/auth/jwt', AuthHandler),
   (r'/logout', LogoutHandler),
+  (r'/INSERT_YOUR_RAPID_CONNECT_URL_HERE', ReadmeHandler),
 ], debug=True, config=config)
