@@ -41,7 +41,8 @@ class WelcomeHandler(BaseHandler):
 class AuthHandler(BaseHandler):
   def post(self):
     try:
-      verified_jwt = jwt.decode(self.request.POST['assertion'], "abcdABCDabcdABCDabcdABCD")
+      jwt_secret = "abcdABCDabcdABCDabcdABCD"
+      verified_jwt = jwt.decode(self.request.POST['assertion'], jwt_secret)
       if verified_jwt['aud'] == config['aaf.edu.au']['aud']:
         self.session['attributes'] = verified_jwt['https://aaf.edu.au/attributes']
         self.session['jwt'] = verified_jwt
